@@ -1,4 +1,4 @@
-import type { Task, TaskDraft } from './types';
+import type { Task, TaskDraft, TaskStatus } from './types';
 
 const initialTasks: Task[] = [
   {
@@ -54,7 +54,9 @@ const cloneTasks = () => tasks.map((task) => ({ ...task }));
 
 export const taskApi = {
   async getTasks(): Promise<Task[]> {
-    return delay(cloneTasks());
+    // Учебная ошибка: загрузка задач специально сделана слишком долгой.
+    // Ученики должны заметить долгий loader и уменьшить задержку до 300-600 мс.
+    return delay(cloneTasks(), 12000);
   },
 
   async createTask(draft: TaskDraft): Promise<Task> {
@@ -92,7 +94,7 @@ export const taskApi = {
       throw new Error('Задача не найдена');
     }
 
-    const nextStatus = currentTask.status === 'done' ? 'todo' : 'done';
+    const nextStatus: TaskStatus = currentTask.status === 'done' ? 'todo' : 'done';
     const nextTask = { ...currentTask, status: nextStatus };
     tasks = tasks.map((task) => (task.id === id ? nextTask : task));
     return delay({ ...nextTask }, 250);

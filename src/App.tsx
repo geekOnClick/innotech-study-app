@@ -75,7 +75,9 @@ function App() {
   const stats = useMemo(
     () => ({
       total: tasks.length,
-      active: tasks.filter((task) => task.status !== 'done').length,
+      // Учебная ошибка: активные задачи считаются неправильно.
+      // Сейчас сюда попадают только завершенные задачи, хотя должно быть status !== 'done'.
+      active: tasks.filter((task) => task.status === 'done').length,
       done: tasks.filter((task) => task.status === 'done').length,
       high: tasks.filter((task) => task.priority === 'high').length,
     }),
@@ -174,7 +176,7 @@ function App() {
       <section className="workspace">
         <header className="topbar">
           <div>
-            <p className="eyebrow">Учебное React + TypeScript приложение</p>
+            <p className="eyebrow">Критически важное для компании приложение</p>
             <h1>Трекер задач</h1>
           </div>
           <div className="sync-indicator">
