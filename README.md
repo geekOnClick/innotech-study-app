@@ -9,11 +9,13 @@ npm install
 npm run dev
 ```
 
-Если на Linux появляется ошибка `ENOSPC: System limit for number of file watchers reached`, запустите dev-сервер через polling:
+Если на Linux снова появится ошибка с количеством watchers, используй polling:
 
 ```bash
 npm run dev:poll
 ```
+
+Проект теперь собирается через Webpack, а не через Vite.
 
 ## Что есть в приложении
 
@@ -32,6 +34,7 @@ npm run dev:poll
 - слишком долгий ответ мокового API в `src/mockApi.ts`;
 - неправильный подсчет активных задач в `src/App.tsx`;
 - плохо видимый текст описания задачи в `src/styles.css`.
+- в local storage устанавливается некорректный ключ apiStatusss в `src/App.tsx`;
 
 ## Шаблон обращения к ChatGPT
 

@@ -1,4 +1,6 @@
-import type { Task, TaskDraft, TaskStatus } from './types';
+import type { ApiStatusType, Task, TaskDraft, TaskStatus } from './types';
+
+const apiStatus: ApiStatusType = 'Моковое API';
 
 const initialTasks: Task[] = [
   {
@@ -53,6 +55,10 @@ const delay = <T,>(value: T, ms = 450): Promise<T> =>
 const cloneTasks = () => tasks.map((task) => ({ ...task }));
 
 export const taskApi = {
+  async getApiStatus(): Promise<ApiStatusType> {
+    return delay(apiStatus, 300);
+  },
+
   async getTasks(): Promise<Task[]> {
     // Учебная ошибка: загрузка задач специально сделана слишком долгой.
     // Ученики должны заметить долгий loader и уменьшить задержку до 300-600 мс.

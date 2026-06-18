@@ -10,7 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import { taskApi } from './mockApi';
-import type { Task, TaskDraft, TaskFilters, TaskPriority, TaskStatus } from './types';
+import type { ApiStatusType, Task, TaskDraft, TaskFilters, TaskPriority, TaskStatus } from './types';
 
 const statusLabels: Record<TaskStatus, string> = {
   todo: 'К выполнению',
@@ -47,10 +47,15 @@ function App() {
   const [pendingTaskId, setPendingTaskId] = useState<string | null>(null);
   const [error, setError] = useState('');
 
+  const apiStatus = localStorage.getItem('apiStatus');
+
   useEffect(() => {
-    taskApi
-      .getTasks()
-      .then(setTasks)
+    Promise.all([taskApi.getApiStatus(), taskApi.getTasks()])
+      .then(([status, loadedTasks]) => {
+        // Учебная задача: устанавливается некорректный ключ в local storage apiStatusss
+        localStorage.setItem('apiStatusss', status);
+        setTasks(loadedTasks);
+      })
       .catch(() => setError('Не удалось загрузить моковые задачи'))
       .finally(() => setIsLoading(false));
   }, []);
@@ -181,7 +186,7 @@ function App() {
           </div>
           <div className="sync-indicator">
             <span />
-            Моковый API
+            {apiStatus}
           </div>
         </header>
 

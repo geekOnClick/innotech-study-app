@@ -2,6 +2,8 @@ export type TaskStatus = 'todo' | 'inProgress' | 'done';
 
 export type TaskPriority = 'low' | 'medium' | 'high';
 
+export type ApiStatusType = 'Моковое API' | 'Реальное API';
+
 export interface Task {
   id: string;
   title: string;
